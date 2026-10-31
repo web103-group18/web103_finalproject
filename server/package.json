@@ -6,7 +6,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "npx nodemon server.js"
+    "start": "npx nodemon server.js",
+    "reset": "node config/reset.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
