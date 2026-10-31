@@ -1,7 +1,7 @@
 import express from "express"
 
 // controllers
-import getSubjects from "../controllers/subjects.js"
+import { getSubjects } from "../controllers/subjects.js"
 
 const router = express.Router()
 
