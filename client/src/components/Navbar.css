@@ -1,0 +1,33 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 1.5rem;
+  height: 56px;
+  background: #4a5a6a;
+  border-bottom: 1px solid #3a4856;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar a {
+  color: #e6ecf2;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.navbar a:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* First link (logo / Home) */
+.navbar a:first-child {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-right: 0.5rem;
+}
