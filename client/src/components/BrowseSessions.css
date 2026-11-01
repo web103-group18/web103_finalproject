@@ -1,0 +1,53 @@
+.browse {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  text-align: left;
+}
+
+.browse h1 {
+  margin-bottom: 1.5rem;
+}
+
+.session-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.session-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.25rem;
+  background: #2b3947;
+  border: 1px solid #4a5a6a;
+  border-radius: 8px;
+}
+
+.session-card h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.session-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #c5ced8;
+}
+
+.session-card .subject {
+  color: #8fb4d9;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tag {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
