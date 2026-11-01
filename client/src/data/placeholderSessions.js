@@ -18,7 +18,6 @@ const placeholderSessions = [
     subject_name: "Math",
     host_name: "Test User Two",
     description: "Working through the week 9 problem set together.",
-    location: "Student Union Cafe",
     start_time: "2026-11-06T16:30:00",
     end_time: "2026-11-06T18:00:00",
     member_count: 6,
