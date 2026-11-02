@@ -1,14 +1,20 @@
-import { useRoutes } from "react-router"
+
+import { useRoutes } from "react-router";
 import BrowseSessions from "./components/BrowseSessions.jsx";
+import Home from "./components/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
 import "./App.css";
 
 function App() {
   let element = useRoutes([
     {
+      path: "/",
+      element: <Home />,
+    },
+    {
       path: "/browse",
       element: <BrowseSessions />,
-    }
+    },
   ]);
 
   return (
