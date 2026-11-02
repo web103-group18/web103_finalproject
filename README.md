@@ -26,6 +26,14 @@ Database: PostgreSQL
 
 ## Features
 
+
+### ✅ Home/Landing Page
+
+A responsive homepage that introduces StudyCircle and helps students discover study sessions. Includes a hero section, navigation buttons, three feature cards, and a footer.
+
+![StudyCircle Homepage Demo](client/public/homepage.gif)
+
+
 ### Browse Events
 
 View a list of all upcoming study sessions with their title, course, date, time, and location.
