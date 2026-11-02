@@ -18,13 +18,13 @@ This document should be completed and submitted during **Unit 7** of this course
 
 - [x] In your repo, update the status of issues in your project board.
 
-- [ ] In your repo, create a GitHub Milestone for each final project unit.
+- [x] In your repo, create a GitHub Milestone for each final project unit.
   - Milestones to verify:
     1. Milestone 3 - Unit 7
     2. Milestone 4 - Unit 8
     3. Final Milestone - Unit 9
 
-  - [ ] Set the completion percentage of each milestone. The GitHub Milestone for this unit (Milestone 3 - Unit 7) should be 100% completed when you submit for full points.
+  - [x] Set the completion percentage of each milestone. The GitHub Milestone for this unit (Milestone 3 - Unit 7) should be 100% completed when you submit for full points.
 
 - [x] In README.md, check off the features you have completed in this unit by adding a ✅ emoji in front of the feature's name.
   - [x] Under each feature you have completed and marked in the README, include a GIF showing feature functionality.
