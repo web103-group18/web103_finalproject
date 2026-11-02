@@ -3,7 +3,7 @@
 
 ## GitHub Project Setup
 Project board created: yes
-Project board shared with codepathreview: [confirm yes or no]
+Project board shared with codepathreview: yes
 
 ## Issues Created
 List the title of each issue you created, one per line:
