@@ -1,7 +1,7 @@
 
 import { useRoutes } from "react-router";
-import BrowseSessions from "./components/BrowseSessions.jsx";
-import Home from "./components/Home.jsx";
+import BrowseSessions from "./pages/BrowseSessions.jsx";
+import Home from "./pages/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
 import "./App.css";
 

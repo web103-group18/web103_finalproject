@@ -23,9 +23,9 @@ List the name of each GitHub Milestone you created, one per line:
 Completion percentage for Milestone 3 - Unit 7: [100]%
 
 List each issue you completed this unit and the main file or folder where that work lives, one per line:
-- Home/Landing Page - client/src/components/Home.jsx, client/src/components/Home.css
+- Home/Landing Page - client/src/pages/Home.jsx, client/src/pages/Home.css
 - Navbar - client/src/components/Navbar.jsx, client/src/components/Navbar.css
-- Browse Sessions Page - client/src/components/BrowseSessions.jsx, client/src/components/BrowseSessions.css
+- Browse Sessions Page - client/src/pages/BrowseSessions.jsx, client/src/pages/BrowseSessions.css
 - Database Tables - server/config/reset.js
 - Set up subject controller and client API file - server/controllers/subjects.js, client/services/SubjectsAPI.jsx
 
