@@ -11,9 +11,10 @@ const reset = async () => {
       CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         github_id BIGINT UNIQUE NOT NULL,
-        github_username VARCHAR(39) NOT NULL,
+        username VARCHAR(39) NOT NULL,
         display_name VARCHAR(100) NOT NULL,
         avatar_url VARCHAR(500) NOT NULL,
+        access_token VARCHAR(255),
         email VARCHAR(255),
         created_at TIMESTAMP DEFAULT NOW()
       );
@@ -46,7 +47,7 @@ const reset = async () => {
       
       INSERT INTO subjects (name) VALUES
         ('Computer Science'), ('Math'), ('Physics'), ('Biology'), ('Chemistry'), ('English'), ('History'), ('Business'), ('Other');
-    `)
+    `);
     console.log("Tables created and seeded.")
   } catch (error) {
     console.error('Reset failed', error);

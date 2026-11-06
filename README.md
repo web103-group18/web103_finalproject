@@ -2,7 +2,7 @@
 
 CodePath WEB103 Final Project
 
-Designed and developed by: Matthew La, Ime Iyonsi, Melissa Martinez, Khadeja Ahmar, Sumaiya Shumu
+Designed and developed by: Matthew La, Ime Iyonsi, Khadeja Ahmar, Sumaiya Shumu
 
 🔗 Link to deployed app:
 
@@ -18,7 +18,7 @@ StudyCircle was inspired by students who want to study a topic with others but d
 
 ## Tech Stack
 
-Frontend: React
+Frontend: React, CSS
 
 Backend: Node.js, Express
 
@@ -34,11 +34,11 @@ A responsive homepage that introduces StudyCircle and helps students discover st
 ![StudyCircle Homepage Demo](client/public/homepage.gif)
 
 
-### Browse Events
+### ✅ Browse Events
 
 View a list of all upcoming study sessions with their title, course, date, time, and location.
 
-[gif goes here]
+![StudyCircle Browsing Page Demo](client/public/browse.gif)
 
 ### Event Details
 
