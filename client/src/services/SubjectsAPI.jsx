@@ -5,5 +5,5 @@ const getSubjects = async () => {
 }
 
 export default {
-  getSubjects
+  getSubjects,
 }
