@@ -1,13 +1,21 @@
-import placeholderSessions from "../data/placeholderSessions.js"
+import { useEffect, useState } from "react"
+import sessionsAPI from "../services/SessionsAPI.jsx"
 import './BrowseSessions.css'
 
 const BrowseSessions = () => {
+  const [sessions, setSessions] = useState([])
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    sessionsAPI.getSessions().then(setSessions).catch((err) => setError(err.message))
+  }, [])
+
   return (
     <main className="browse">
       <h1>Browse Sessions</h1>
 
       <div className="session-list">
-        {placeholderSessions.map((session) => (
+        {sessions.map((session) => (
           <article key={session.id} className="session-card">
             <h2>{session.title}</h2>
             <p className="subject">{session.subject_name}</p>
