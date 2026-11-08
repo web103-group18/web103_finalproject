@@ -1,15 +1,16 @@
-import express from "express"
 
-// controllers
-import { getSubjects } from "../controllers/subjects.js"
-import { getSessions } from "../controllers/sessions.js"
+import express from "express";
 
-const router = express.Router()
+import { getSubjects } from "../controllers/subjects.js";
+import {
+  getSessions,
+  createSession
+} from "../controllers/sessions.js";
 
-router.get("/subjects", getSubjects)
-router.get("/sessions", getSessions)
+const router = express.Router();
 
+router.get("/subjects", getSubjects);
+router.get("/sessions", getSessions);
+router.post("/sessions", createSession);
 
-
-
-export default router
+export default router;
