@@ -5,6 +5,7 @@ import Home from "./pages/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
 import SessionDetails from "./pages/SessionDetails.jsx";
 import CreateSession from "./pages/CreateSession.jsx";
+import EditSession from "./pages/EditSession.jsx";
 import "./App.css";
 
 function App() {
@@ -20,6 +21,10 @@ function App() {
     {
       path: "/sessions/create",
       element: <CreateSession />,
+    },
+    {
+      path: "/sessions/:id/edit",
+      element: <EditSession />,
     },
     {
       path: "/sessions/:id",
