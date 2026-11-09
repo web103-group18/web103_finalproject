@@ -122,4 +122,116 @@ const createSession = async (req, res) => {
   }
 };
 
-export { getSessions, createSession };
+const updateSession = async (req, res) => {
+  if (!req.isAuthenticated?.() || !req.user?.id) {
+    return res.status(401).json({
+      error: "Please log in with GitHub first."
+    });
+  }
+
+  const id = Number(req.params.id);
+  const {
+    title,
+    description,
+    subject_id,
+    start_time,
+    end_time,
+    max_members
+  } = req.body;
+
+  const subjectId = Number(subject_id);
+  const capacity = Number(max_members);
+  const start = new Date(start_time);
+  const end = new Date(end_time);
+
+  if (
+    !Number.isInteger(id) || id < 1 ||
+    typeof title !== "string" ||
+    !title.trim() ||
+    title.trim().length > 100 ||
+    !Number.isInteger(subjectId) || subjectId < 1 ||
+    !Number.isInteger(capacity) ||
+    capacity < 1 || capacity > 100 ||
+    !Number.isFinite(start.getTime()) ||
+    !Number.isFinite(end.getTime()) ||
+    start <= new Date() ||
+    end <= start ||
+    (description != null &&
+      typeof description !== "string")
+  ) {
+    return res.status(400).json({
+      error: "Please provide valid session details."
+    });
+  }
+
+  try {
+    const existing = await pool.query(
+      "SELECT host_id FROM sessions WHERE id = $1",
+      [id]
+    );
+
+    if (!existing.rows.length) {
+      return res.status(404).json({
+        error: "Session not found."
+      });
+    }
+
+    if (existing.rows[0].host_id !== req.user.id) {
+      return res.status(403).json({
+        error: "You can only edit your own sessions."
+      });
+    }
+
+    const result = await pool.query(
+      `UPDATE sessions
+       SET title = $1,
+           description = $2,
+           subject_id = $3,
+           start_time = $4,
+           end_time = $5,
+           max_members = $6
+       WHERE id = $7
+         AND host_id = $8
+         AND $6 >= (
+           SELECT COUNT(*)
+           FROM session_members
+           WHERE session_id = $7
+         )
+       RETURNING *`,
+      [
+        title.trim(),
+        description?.trim() || "",
+        subjectId,
+        start,
+        end,
+        capacity,
+        id,
+        req.user.id
+      ]
+    );
+
+    if (!result.rows.length) {
+      return res.status(400).json({
+        error: "Capacity cannot be below current attendance."
+      });
+    }
+
+    return res.status(200).json(result.rows[0]);
+
+  } catch (error) {
+    console.error("Update session failed:", error);
+
+    if (error.code === "23503") {
+      return res.status(400).json({
+        error: "Invalid subject selected."
+      });
+    }
+
+    return res.status(500).json({
+      error: "Unable to update the session."
+    });
+  }
+};
+
+
+export { getSessions, createSession, updateSession };

@@ -22,9 +22,26 @@ const createSession = async (sessionData) => {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.error || "Failed to create session."
-    );
+    throw new Error(data.error || "Failed to create session.");
+  }
+
+  return data;
+};
+
+const updateSession = async (id, sessionData) => {
+  const response = await fetch(`/api/sessions/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "include",
+    body: JSON.stringify(sessionData)
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Failed to update session.");
   }
 
   return data;
@@ -32,5 +49,6 @@ const createSession = async (sessionData) => {
 
 export default {
   getSessions,
-  createSession
+  createSession,
+  updateSession
 };
