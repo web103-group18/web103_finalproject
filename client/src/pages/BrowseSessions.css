@@ -125,7 +125,7 @@
 
 .browse .session-card .subject {
   display: inline-flex;
-  align-self: flex-start;
+  align-self: center;
   align-items: center;
   width: fit-content;
   padding: 6px 12px;
@@ -144,7 +144,7 @@
 
 .browse .session-card .tag {
   display: inline-flex;
-  align-self: flex-start;
+  align-self: center;
   width: fit-content;
   padding: 6px 13px;
   background: rgba(255, 111, 125, 0.12);
