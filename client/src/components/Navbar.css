@@ -13,6 +13,7 @@
 
 .navbar a {
   color: #e6ecf2;
+  position: relative;
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
@@ -21,12 +22,35 @@
   transition: background 0.15s;
 }
 
-.navbar a:hover {
-  background: rgba(255, 255, 255, 0.12);
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 16px;
+  width: 0;
+  height: 3px;
+  
+  background: #7774E8;
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+
+.navbar-links a:hover::after {
+  width: calc(100% - 32px);
+}
+
+.navbar-links a:hover {
+  background-color: rgba(30, 40, 60, 0.25)
 }
 
 /* First link (logo / Home) */
-.navbar a:first-child {
+.navbar .home {
   font-weight: 700;
   font-size: 1.05rem;
   margin-right: 0.5rem;

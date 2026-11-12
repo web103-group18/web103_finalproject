@@ -24,9 +24,11 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link to="/">Home</Link>
-      <Link to="/browse">Browse Sessions</Link>
-      <Link to="/sessions/create">Create Session</Link>
+      <Link to="/" className="home">📚 StudyCircle</Link>
+      <div className="navbar-links">
+        <Link to="/browse">Browse Sessions</Link>
+        <Link to="/sessions/create">Create Session</Link>
+      </div>
 
       <div className="navbar-right">
         {user ? (
