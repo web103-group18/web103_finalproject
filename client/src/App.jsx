@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar.jsx";
 import SessionDetails from "./pages/SessionDetails.jsx";
 import CreateSession from "./pages/CreateSession.jsx";
 import EditSession from "./pages/EditSession.jsx";
+import MySessions from "./pages/MySessions.jsx";
 import "./App.css";
 
 function App() {
@@ -29,6 +30,10 @@ function App() {
     {
       path: "/sessions/:id",
       element: <SessionDetails />,
+    },
+    {
+      path: "/my-sessions", 
+      element: <MySessions /> 
     },
   ]);
 

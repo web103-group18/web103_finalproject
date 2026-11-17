@@ -1,0 +1,68 @@
+.my-sessions-section {
+  max-width: 1100px;
+  margin: 0 auto 56px;
+}
+
+.my-sessions-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #383d51;
+}
+
+.my-sessions-heading h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 750;
+  color: #f5f6ff;
+}
+
+.my-sessions-heading a {
+  color: #aab2ff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.my-sessions-heading a:hover {
+  text-decoration: underline;
+}
+
+.my-sessions .empty-note {
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  color: #c5cbdb;
+  background: #222635;
+  border: 1px solid #3d4358;
+  border-radius: 14px;
+}
+
+.my-sessions-login {
+  max-width: 700px;
+  margin: 25px auto;
+  padding: 28px;
+  text-align: center;
+  color: #c5cbdb;
+  background: #222635;
+  border: 1px solid #3d4358;
+  border-radius: 14px;
+}
+
+.my-sessions-login a {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 20px;
+  background: #777ff4;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.my-sessions-login a:hover {
+  background: #9399ff;
+}

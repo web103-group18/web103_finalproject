@@ -1,0 +1,45 @@
+.session-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.action-button {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #aab2ff;
+  border-radius: 8px;
+  background: rgba(137, 146, 255, 0.2);
+  color: #e6ecf2;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.action-button:hover:not(:disabled) {
+  background: rgba(137, 146, 255, 0.35);
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-button.secondary {
+  background: transparent;
+}
+
+.action-button.danger {
+  border-color: #c25b5b;
+  background: rgba(194, 91, 91, 0.2);
+}
+
+.action-button.danger:hover:not(:disabled) {
+  background: rgba(194, 91, 91, 0.35);
+}
+
+.session-actions-note {
+  color: #c5ced8;
+}

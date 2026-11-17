@@ -1,7 +1,8 @@
-
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import sessionsAPI from "../services/SessionsAPI.jsx";
+import sessionsAPI from "../services/SessionsAPI.js";
+import SessionActions from "../components/SessionActions.jsx";
+import "./SessionDetails.css";
 
 export default function SessionDetails() {
   const { id } = useParams();
@@ -10,99 +11,111 @@ export default function SessionDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    let active = true;
+  const loadData = useCallback(async () => {
+    try {
+      const [sessions, authResponse] = await Promise.all([
+        sessionsAPI.getSessions(),
+        fetch("/auth/login/success", {
+          credentials: "include",
+        }),
+      ]);
 
-    const loadData = async () => {
-      try {
-        const [sessions, authResponse] = await Promise.all([
-          sessionsAPI.getSessions(),
-          fetch("/auth/login/success", {
-            credentials: "include"
-          })
-        ]);
+      const authData = authResponse.ok ? await authResponse.json() : null;
 
-        const authData = authResponse.ok
-          ? await authResponse.json()
-          : null;
+      const found = sessions.find((item) => String(item.id) === String(id));
 
-        if (!active) return;
-
-        const found = sessions.find(
-          item => String(item.id) === String(id)
-        );
-
-        setSession(found || null);
-        setUser(authData?.user ?? null);
-      } catch (err) {
-        if (active) setError(err.message);
-      } finally {
-        if (active) setLoading(false);
-      }
-    };
-
-    loadData();
-
-    return () => {
-      active = false;
-    };
+      setSession(found || null);
+      setUser(authData?.user ?? null);
+      setError("");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }, [id]);
 
-  if (loading) return <main><p>Loading...</p></main>;
-  if (error) return <main><p>{error}</p></main>;
-  if (!session) return <main><h1>Session not found</h1></main>;
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
-  const isHost =
-    user &&
-    Number(user.id) === Number(session.host_id);
+  if (loading)
+    return (
+      <main className="session-details">
+        <p>Loading...</p>
+      </main>
+    );
+  if (error)
+    return (
+      <main className="session-details">
+        <p>{error}</p>
+      </main>
+    );
+  if (!session) {
+    return (
+      <main className="session-details">
+        <h1>Session not found</h1>
+        <Link to="/browse" className="details-back">
+          ← Back to Browse Sessions
+        </Link>
+      </main>
+    );
+  }
+
+  const spotsFilled = session.member_count;
+  const percentFull = Math.min(100, (spotsFilled / session.max_members) * 100);
+  const isCanceled = session.status === "Canceled";
 
   return (
-    <main className="container">
-      <Link to="/browse">
+    <main className="session-details">
+      <Link to="/browse" className="details-back">
         ← Back to Browse Sessions
       </Link>
 
-      <h1>{session.title}</h1>
-
-      <p><strong>Subject:</strong> {session.subject_name}</p>
-      <p><strong>Host:</strong> {session.host_name}</p>
-      <p><strong>Description:</strong> {session.description}</p>
-
-      <p>
-        <strong>Start:</strong>{" "}
-        {new Date(session.start_time).toLocaleString()}
-      </p>
-
-      <p>
-        <strong>End:</strong>{" "}
-        {new Date(session.end_time).toLocaleString()}
-      </p>
-
-      <p>
-        <strong>Attendees:</strong>{" "}
-        {session.member_count}/{session.max_members}
-      </p>
-
-      <p><strong>Status:</strong> {session.status}</p>
-
-      {isHost && (
-        <div style={{ marginTop: "24px" }}>
-          <Link
-            to={`/sessions/${session.id}/edit`}
-            style={{
-              display: "inline-block",
-              padding: "12px 22px",
-              borderRadius: "10px",
-              background: "#797ff4",
-              color: "#fff",
-              textDecoration: "none",
-              fontWeight: "700"
-            }}
+      <article className="details-card">
+        <div className="details-header">
+          <span className="details-subject">{session.subject_name}</span>
+          <span
+            className={`details-status ${isCanceled ? "canceled" : "active"}`}
           >
-            Edit Session
-          </Link>
+            {session.status}
+          </span>
         </div>
-      )}
+
+        <h1>{session.title}</h1>
+        <p className="details-host">Hosted by {session.host_name}</p>
+
+        {session.description && (
+          <p className="details-description">{session.description}</p>
+        )}
+
+        <dl className="details-meta">
+          <div>
+            <dt>Starts</dt>
+            <dd>{new Date(session.start_time).toLocaleString()}</dd>
+          </div>
+          <div>
+            <dt>Ends</dt>
+            <dd>{new Date(session.end_time).toLocaleString()}</dd>
+          </div>
+        </dl>
+
+        <div className="details-attendance">
+          <div className="attendance-label">
+            <span>Attendees</span>
+            <span>
+              {spotsFilled}/{session.max_members}
+            </span>
+          </div>
+          <div className="attendance-bar">
+            <div
+              className="attendance-fill"
+              style={{ width: `${percentFull}%` }}
+            />
+          </div>
+        </div>
+
+        <SessionActions session={session} user={user} onChange={loadData} />
+      </article>
     </main>
   );
 }

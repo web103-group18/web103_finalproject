@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import sessionsAPI from "../services/SessionsAPI.jsx";
-import subjectsAPI from "../services/SubjectsAPI.jsx";
+import sessionsAPI from "../services/SessionsAPI.js";
+import subjectsAPI from "../services/SubjectsAPI.js";
 import "./CreateSession.css";
 
 export default function CreateSession() {
