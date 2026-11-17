@@ -31,12 +31,14 @@ router.get(
     scope: [ 'read:user' ]
   })
 )
+
+const CLIENT_URL = process.env.CLIENT_URL || "/";
 router.get(
-  '/github/callback',
-  passport.authenticate('github', {
-    successRedirect: 'http://localhost:5173',
-    failureRedirect: 'http://localhost:5173/?login=failed'
-  })
-)
+  "/github/callback",
+  passport.authenticate("github", {
+    successRedirect: CLIENT_URL,
+    failureRedirect: `${CLIENT_URL}?login=failed`,
+  }),
+);
 
 export default router

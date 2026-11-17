@@ -1,18 +1,11 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
-import path from 'path'
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   build: {
     outDir: "../server/public",
     emptyOutDir: true,
-  },
-  resolve: {
-    alias: {
-      picocss: path.resolve(__dirname, "../node_modules/@picocss/pico/css"),
-    },
   },
   server: {
     proxy: {
