@@ -1,6 +1,9 @@
+const API_URL = "https://server-0fb4.onrender.com";
 
 const getSessions = async () => {
-  const response = await fetch("/api/sessions");
+  const response = await fetch(`${API_URL}/api/sessions`, {
+    credentials: "include",
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch sessions.");
@@ -10,13 +13,13 @@ const getSessions = async () => {
 };
 
 const createSession = async (sessionData) => {
-  const response = await fetch("/api/sessions", {
+  const response = await fetch(`${API_URL}/api/sessions`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(sessionData)
+    body: JSON.stringify(sessionData),
   });
 
   const data = await response.json();
@@ -29,13 +32,13 @@ const createSession = async (sessionData) => {
 };
 
 const updateSession = async (id, sessionData) => {
-  const response = await fetch(`/api/sessions/${id}`, {
+  const response = await fetch(`${API_URL}/api/sessions/${id}`, {
     method: "PUT",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(sessionData)
+    body: JSON.stringify(sessionData),
   });
 
   const data = await response.json();
@@ -48,7 +51,7 @@ const updateSession = async (id, sessionData) => {
 };
 
 const joinSession = async (id) => {
-  const response = await fetch(`/api/sessions/${id}/join`, {
+  const response = await fetch(`${API_URL}/api/sessions/${id}/join`, {
     method: "POST",
     credentials: "include",
   });
@@ -63,7 +66,7 @@ const joinSession = async (id) => {
 };
 
 const cancelSession = async (id) => {
-  const response = await fetch(`/api/sessions/${id}/cancel`, {
+  const response = await fetch(`${API_URL}/api/sessions/${id}/cancel`, {
     method: "PATCH",
     credentials: "include",
   });
@@ -78,7 +81,7 @@ const cancelSession = async (id) => {
 };
 
 const getMySessions = async () => {
-  const response = await fetch("/api/my-sessions", {
+  const response = await fetch(`${API_URL}/api/my-sessions`, {
     credentials: "include",
   });
 
@@ -99,5 +102,5 @@ export default {
   updateSession,
   joinSession,
   cancelSession,
-  getMySessions
+  getMySessions,
 };

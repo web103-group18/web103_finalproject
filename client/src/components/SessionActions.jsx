@@ -42,7 +42,7 @@ export default function SessionActions({ session, user, onChange }) {
     );
   } else if (!user) {
     actions = (
-      <a className="action-button" href="/auth/github">
+      <a className="action-button" href="https://server-0fb4.onrender.com/auth/github">
         Log in to register
       </a>
     );

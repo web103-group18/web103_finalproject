@@ -40,14 +40,13 @@ export default function EditSession() {
 
     const loadData = async () => {
       try {
-        const [sessions, subjectList, authResponse] =
-          await Promise.all([
-            sessionsAPI.getSessions(),
-            subjectsAPI.getSubjects(),
-            fetch("/auth/login/success", {
-              credentials: "include"
-            })
-          ]);
+        const [sessions, subjectList, authResponse] = await Promise.all([
+          sessionsAPI.getSessions(),
+          subjectsAPI.getSubjects(),
+          fetch("https://server-0fb4.onrender.com/auth/login/success", {
+            credentials: "include",
+          }),
+        ]);
 
         const authData = authResponse.ok
           ? await authResponse.json()

@@ -9,15 +9,10 @@ export default defineConfig({
     outDir: "dist",
     emptyOutDir: true,
   },
-  resolve: {
-    alias: {
-      picocss: path.resolve(__dirname, "../node_modules/@picocss/pico/css"),
-    },
-  },
   server: {
     proxy: {
-      "/api": { target: "http://localhost:3001", changeOrigin: true },
-      "/auth": { target: "http://localhost:3001", changeOrigin: true },
+      "/api": { target: "https://server-0fb4.onrender.com", changeOrigin: true },
+      "/auth": { target: "https://server-0fb4.onrender.com", changeOrigin: true },
     },
   },
 });

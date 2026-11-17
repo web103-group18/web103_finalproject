@@ -15,7 +15,7 @@ export default function SessionDetails() {
     try {
       const [sessions, authResponse] = await Promise.all([
         sessionsAPI.getSessions(),
-        fetch("/auth/login/success", {
+        fetch("https://server-0fb4.onrender.com/auth/login/success", {
           credentials: "include",
         }),
       ]);

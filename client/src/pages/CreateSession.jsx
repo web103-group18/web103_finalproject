@@ -13,7 +13,8 @@ export default function CreateSession() {
   const [checkingLogin, setCheckingLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const API_URL = "https://server-0fb4.onrender.com";
+  
   const [form, setForm] = useState({
     title: "",
     subject_id: "",
@@ -28,7 +29,7 @@ export default function CreateSession() {
       .then(setSubjects)
       .catch(() => setError("Unable to load subjects."));
 
-    fetch("/auth/login/success", {
+    fetch(`${API_URL}/auth/login/success`, {
       credentials: "include"
     })
       .then(res => res.ok ? res.json() : null)
@@ -103,7 +104,7 @@ export default function CreateSession() {
         {!checkingLogin && !user && (
           <div className="login-notice">
             <p>Log in with GitHub to create a session.</p>
-            <a href="/auth/github" className="github-login">
+            <a href={`${API_URL}/auth/github`} className="github-login">
               Log in with GitHub
             </a>
           </div>
