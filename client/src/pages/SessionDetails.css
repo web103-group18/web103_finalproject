@@ -1,0 +1,138 @@
+.session-details {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.details-back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #aab2ff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.details-back:hover {
+  text-decoration: underline;
+}
+
+.details-card {
+  padding: 2rem;
+  background: #2b3947;
+  border: 1px solid #4a5a6a;
+  border-radius: 12px;
+}
+
+.details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.details-subject {
+  padding: 6px 12px;
+  background: rgba(137, 146, 255, 0.15);
+  border: 1px solid rgba(137, 146, 255, 0.25);
+  border-radius: 999px;
+  color: #aab2ff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.details-status {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.details-status.active {
+  background: rgba(88, 180, 120, 0.2);
+  color: #8fd9a8;
+}
+
+.details-status.canceled {
+  background: rgba(194, 91, 91, 0.2);
+  color: #f0a0a0;
+}
+
+.details-card h1 {
+  margin: 0.25rem 0;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.details-host {
+  margin: 0 0 1.25rem;
+  color: #c5ced8;
+}
+
+.details-description {
+  margin: 0 0 1.5rem;
+  color: #e6ecf2;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.details-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid #4a5a6a;
+  border-bottom: 1px solid #4a5a6a;
+}
+
+.details-meta dt {
+  margin-bottom: 0.25rem;
+  color: #8fa0b3;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.details-meta dd {
+  margin: 0;
+  color: #e6ecf2;
+}
+
+.attendance-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: #c5ced8;
+  font-size: 0.9rem;
+}
+
+.attendance-bar {
+  height: 8px;
+  background: #1f2a35;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.attendance-fill {
+  height: 100%;
+  background: #8992ff;
+  border-radius: 999px;
+  transition: width 0.3s;
+}
+
+@media (max-width: 600px) {
+  .details-card {
+    padding: 1.25rem;
+  }
+
+  .details-card h1 {
+    font-size: 1.5rem;
+  }
+}
