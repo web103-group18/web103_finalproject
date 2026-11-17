@@ -7,6 +7,9 @@ export default function SessionActions({ session, user, onChange }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
+  console.log("SessionActions received user:", user);
+  console.log("Is user logged in?", Boolean(user));
+
   const isHost = user && Number(user.id) === Number(session.host_id);
   const isCanceled = session.status === "Canceled";
   const isFull = session.member_count >= session.max_members;
@@ -81,7 +84,7 @@ export default function SessionActions({ session, user, onChange }) {
       </button>
     );
   }
-
+  console.log("SessionDetails user:", user);
   return (
     <div className="session-actions">
       {actions}
