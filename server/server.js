@@ -1,4 +1,6 @@
 import "dotenv/config"
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { pool } from "./config/database.js"
 import authRoutes from "./routes/auth.js"
 import { GitHub } from "./config/auth.js"
