@@ -15,18 +15,18 @@ export default function SessionDetails() {
     try {
       const [sessions, authResponse] = await Promise.all([
         sessionsAPI.getSessions(),
-        fetch("https://server-0fb4.onrender.com/auth/login/success", {
+        fetch(`${API_URL}/auth/login/success`, {
           credentials: "include",
         }),
       ]);
 
+      console.log("Auth response status:", authResponse.status);
+
       const authData = authResponse.ok ? await authResponse.json() : null;
 
-      const found = sessions.find((item) => String(item.id) === String(id));
+      console.log("Auth data:", authData);
 
-      setSession(found || null);
       setUser(authData?.user ?? null);
-      setError("");
     } catch (err) {
       setError(err.message);
     } finally {
