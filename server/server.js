@@ -8,10 +8,13 @@ import passport from "passport"
 import express from "express"
 import cors from "cors"
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3001;
 const app = express()
 
-app.use(express.json())
+app.set("trust proxy", 1);
+
+app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -24,6 +27,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: true,
+      sameSite: "none",
+      
+    },
   }),
 )
 
