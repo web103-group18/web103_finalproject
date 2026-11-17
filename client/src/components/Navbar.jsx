@@ -6,7 +6,7 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
   const API_URL = "https://server-0fb4.onrender.com";
   useEffect(() => {
-    fetch("/auth/login/success", {
+    fetch(`${API_URL}/auth/login/success`, {
       credentials: "include",
     })
       .then((res) => (res.ok ? res.json() : null))
@@ -15,7 +15,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = async () => {
-    await fetch("/auth/logout", {
+    await fetch(`${API_URL}/auth/logout`, {
       credentials: "include",
     });
     setUser(null);
