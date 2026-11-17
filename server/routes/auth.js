@@ -32,11 +32,11 @@ router.get(
   })
 )
 router.get(
-  '/github/callback',
-  passport.authenticate('github', {
-    successRedirect: 'http://localhost:5173',
-    failureRedirect: 'http://localhost:5173/?login=failed'
-  })
-)
+  "/github/callback",
+  passport.authenticate("github", {
+    successRedirect: "https://client-ax1x.onrender.com",
+    failureRedirect: "https://client-ax1x.onrender.com/?login=failed",
+  }),
+);
 
 export default router

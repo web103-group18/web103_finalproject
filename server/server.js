@@ -11,12 +11,10 @@ import { GitHub } from "./config/auth.js";
 import router from "./routes/routes.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const isProduction = process.env.NODE_ENV === "production";
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-// Render sits behind a proxy, so this is needed for secure cookies
-if (isProduction) app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 
 app.use(express.json());
 app.use(
@@ -32,9 +30,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: isProduction,
-      sameSite: "lax",
-      maxAge: 1000 * 60 * 60 * 24 * 7,
+      secure: true,
+      sameSite: "none",
+      
     },
   }),
 );
