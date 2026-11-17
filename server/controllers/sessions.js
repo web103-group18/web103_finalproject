@@ -3,17 +3,24 @@ import { pool } from "../config/database.js";
 
 const getSessions = async (req, res) => {
   try {
+    const userId = req.user?.id ?? null;
+
     const result = await pool.query(
       `SELECT s.*,
           sub.name AS subject_name,
           u.display_name AS host_name,
-          COUNT(sm.user_id)::int AS member_count
+          COUNT(sm.user_id)::int AS member_count,
+          EXISTS (
+            SELECT 1 FROM session_members
+            WHERE session_id = s.id AND user_id = $1::int
+          ) AS joined
        FROM sessions s
        JOIN subjects sub ON s.subject_id = sub.id
        JOIN users u ON s.host_id = u.id
        LEFT JOIN session_members sm ON sm.session_id = s.id
        GROUP BY s.id, sub.name, u.display_name
-       ORDER BY s.start_time ASC`
+       ORDER BY s.start_time ASC`,
+      [userId],
     );
 
     res.json(result.rows);
@@ -233,5 +240,178 @@ const updateSession = async (req, res) => {
   }
 };
 
+const joinSession = async (req, res) => {
+  if (!req.isAuthenticated?.() || !req.user?.id) {
+    return res.status(401).json({
+      error: "Please log in with GitHub first.",
+    });
+  }
 
-export { getSessions, createSession, updateSession };
+  const sessionId = Number(req.params.id);
+
+  if (!Number.isInteger(sessionId) || sessionId < 1) {
+    return res.status(400).json({ error: "Invalid session id." });
+  }
+
+  const client = await pool.connect().catch(() => null);
+
+  if (!client) {
+    return res.status(500).json({
+      error: "Database connection failed.",
+    });
+  }
+
+  try {
+    await client.query("BEGIN");
+
+    // Lock the row so two people can't take the last spot at once
+    const sessionResult = await client.query(
+      "SELECT status, max_members FROM sessions WHERE id = $1 FOR UPDATE",
+      [sessionId],
+    );
+
+    if (!sessionResult.rows.length) {
+      await client.query("ROLLBACK");
+      return res.status(404).json({ error: "Session not found." });
+    }
+
+    const { status, max_members } = sessionResult.rows[0];
+
+    if (status !== "Active") {
+      await client.query("ROLLBACK");
+      return res.status(400).json({
+        error: "This session was canceled.",
+      });
+    }
+
+    const count = await client.query(
+      `SELECT COUNT(*)::int AS member_count
+       FROM session_members WHERE session_id = $1`,
+      [sessionId],
+    );
+
+    if (count.rows[0].member_count >= max_members) {
+      await client.query("ROLLBACK");
+      return res.status(400).json({ error: "This session is full." });
+    }
+
+    await client.query(
+      `INSERT INTO session_members (session_id, user_id)
+       VALUES ($1, $2)`,
+      [sessionId, req.user.id],
+    );
+
+    await client.query("COMMIT");
+
+    return res.status(201).json({ message: "Registered for session." });
+  } catch (error) {
+    await client.query("ROLLBACK");
+
+    // 23505 = the composite primary key blocked a duplicate join
+    if (error.code === "23505") {
+      return res.status(409).json({
+        error: "You are already registered for this session.",
+      });
+    }
+
+    console.error("Join session failed:", error);
+
+    return res.status(500).json({
+      error: "Unable to register for the session.",
+    });
+  } finally {
+    client.release();
+  }
+};
+
+const cancelSession = async (req, res) => {
+  if (!req.isAuthenticated?.() || !req.user?.id) {
+    return res.status(401).json({
+      error: "Please log in with GitHub first.",
+    });
+  }
+
+  const sessionId = Number(req.params.id);
+
+  if (!Number.isInteger(sessionId) || sessionId < 1) {
+    return res.status(400).json({ error: "Invalid session id." });
+  }
+
+  try {
+    const existing = await pool.query(
+      "SELECT host_id FROM sessions WHERE id = $1",
+      [sessionId],
+    );
+
+    if (!existing.rows.length) {
+      return res.status(404).json({ error: "Session not found." });
+    }
+
+    if (existing.rows[0].host_id !== req.user.id) {
+      return res.status(403).json({
+        error: "Only the host can cancel this session.",
+      });
+    }
+
+    const result = await pool.query(
+      `UPDATE sessions SET status = 'Canceled'
+       WHERE id = $1 RETURNING *`,
+      [sessionId],
+    );
+
+    return res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error("Cancel session failed:", error);
+
+    return res.status(500).json({
+      error: "Unable to cancel the session.",
+    });
+  }
+};
+
+const getMySessions = async (req, res) => {
+  if (!req.isAuthenticated?.() || !req.user?.id) {
+    return res.status(401).json({
+      error: "Please log in with GitHub first.",
+    });
+  }
+
+  try {
+    const result = await pool.query(
+      `SELECT s.*,
+          sub.name AS subject_name,
+          u.display_name AS host_name,
+          (SELECT COUNT(*)::int
+           FROM session_members
+           WHERE session_id = s.id) AS member_count,
+          (s.host_id = $1) AS is_host
+       FROM sessions s
+       JOIN subjects sub ON s.subject_id = sub.id
+       JOIN users u ON s.host_id = u.id
+       WHERE s.host_id = $1
+          OR EXISTS (
+            SELECT 1 FROM session_members
+            WHERE session_id = s.id AND user_id = $1
+          )
+       ORDER BY s.start_time ASC`,
+      [req.user.id],
+    );
+
+    return res.json(result.rows);
+  } catch (error) {
+    console.error("Get my sessions failed:", error);
+
+    return res.status(500).json({
+      error: "Unable to load your sessions.",
+    });
+  }
+};
+
+export {
+  getSessions,
+  createSession,
+  updateSession,
+  joinSession,
+  cancelSession,
+  getMySessions
+};
