@@ -9,8 +9,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api": { target: "http://localhost:3001", changeOrigin: true },
-      "/auth": { target: "http://localhost:3001", changeOrigin: true },
+      "/api": { target: "https://server-0fb4.onrender.com" },
+      "/auth": { target: "https://server-0fb4.onrender.com" },
     },
   },
 });
