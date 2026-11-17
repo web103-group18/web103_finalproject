@@ -19,11 +19,11 @@ app.set("trust proxy", 1);
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://client-ax1x.onrender.com",
     methods: "GET,POST,PUT,DELETE,PATCH",
     credentials: true,
   }),
-)
+);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
