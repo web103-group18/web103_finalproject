@@ -4,7 +4,7 @@ import "./Navbar.css";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
-
+  const API_URL = "https://server-0fb4.onrender.com";
   useEffect(() => {
     fetch("/auth/login/success", {
       credentials: "include",
@@ -40,7 +40,7 @@ const Navbar = () => {
             <button onClick={handleLogout}>Log out</button>
           </>
         ) : (
-          <a className="login-button" href="/auth/github">
+          <a className="login-button" href={`${API_URL}/auth/github`}>
             Log in with GitHub
           </a>
         )}
