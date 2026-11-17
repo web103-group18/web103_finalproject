@@ -104,7 +104,7 @@ export default function CreateSession() {
         {!checkingLogin && !user && (
           <div className="login-notice">
             <p>Log in with GitHub to create a session.</p>
-            <a href="/auth/github" className="github-login">
+            <a href={`${API_URL}/auth/github`} className="github-login">
               Log in with GitHub
             </a>
           </div>
