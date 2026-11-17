@@ -1,7 +1,9 @@
 const API_URL = "https://server-0fb4.onrender.com";
 
 const getSessions = async () => {
-  const response = await fetch(`${API_URL}/api/sessions`);
+  const response = await fetch(`${API_URL}/api/sessions`, {
+    credentials: "include",
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch sessions.");
