@@ -1,7 +1,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import sessionsAPI from "../services/SessionsAPI.jsx";
+import sessionsAPI from "../services/SessionsAPI.js";
 import "./BrowseSessions.css";
 
 const BrowseSessions = () => {
@@ -65,8 +65,10 @@ const BrowseSessions = () => {
           aria-label="Filter by subject"
         >
           <option value="all">All Subjects</option>
-          {subjects.map(s => (
-            <option key={s} value={s}>{s}</option>
+          {subjects.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
           ))}
         </select>
 
@@ -88,10 +90,17 @@ const BrowseSessions = () => {
       )}
 
       <div className="session-list">
-        {filteredSessions.map(session => (
+        {filteredSessions.map((session) => (
           <article key={session.id} className="session-card">
             <h2>{session.title}</h2>
-            <p className="subject">{session.subject_name}</p>
+
+            <div className="card-tags">
+              <p className="subject">{session.subject_name}</p>
+              {session.status === "Canceled" && (
+                <span className="tag">Canceled</span>
+              )}
+            </div>
+
             <p>Hosted by {session.host_name}</p>
             <p>{session.description}</p>
             <p>
@@ -102,13 +111,7 @@ const BrowseSessions = () => {
               {session.member_count}/{session.max_members} spots filled
             </p>
 
-            {session.status === "Canceled" && (
-              <span className="tag">Canceled</span>
-            )}
-
-            <Link to={`/sessions/${session.id}`}>
-              View Details
-            </Link>
+            <Link to={`/sessions/${session.id}`}>View Details</Link>
           </article>
         ))}
       </div>
