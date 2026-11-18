@@ -5,7 +5,7 @@ CodePath WEB103 Final Project
 
 **Designed and developed by:** Matthew La, Ime Iyonsi, Khadeja Ahmar, Sumaiya Shumu
 
-**Link to deployed app:** Coming soon
+**Link to deployed app:** https://client-ax1x.onrender.com
 
 ## About
 
@@ -65,8 +65,7 @@ Students can open an individual session to view its details, including:
 
 Authenticated session hosts can also access the Edit Session page.
 
-<!-- Add this GIF after recording it. -->
-<!-- ![Session Details Demo](client/public/session-details.gif) -->
+![StudyCircle Detail Page](client/public/sessionDetails.gif)
 
 ### ✅ Create Session
 
@@ -80,10 +79,6 @@ Users can enter:
 - Maximum number of attendees.
 
 The application validates the submitted information, saves the session to PostgreSQL, and redirects the user to the Session Details page.
-
-### ✅ Create Session
-
-Users can create new study sessions.
 
 ![Create Session Demo](client/public/create-session.gif)
 
@@ -100,8 +95,7 @@ The Edit Session page automatically loads the existing session information and a
 
 Only the session host is authorized to update the session. Changes are saved to the PostgreSQL database.
 
-<!-- Add this GIF after recording it. -->
-<!-- ![Edit Session Demo](client/public/edit-session.gif) -->
+![Edit Session Demo](client/public/editSession.gif)
 
 ### ✅ Search, Filter, and Sort
 
@@ -112,8 +106,7 @@ Additional options include:
 - Sorting sessions by earliest or latest start time.
 - Displaying a message when no sessions match the search.
 
-<!-- Add this GIF after recording it. -->
-<!-- ![Search and Sort Demo](client/public/search-sort.gif) -->
+![Sort Demo](client/public/sortSession.gif)
 
 ### ✅ GitHub Authentication
 
@@ -127,22 +120,19 @@ Users can:
 
 The backend verifies authentication and session ownership before allowing session modifications.
 
-<!-- Add this GIF after recording it, if desired. -->
-<!-- ![GitHub Authentication Demo](client/public/github-login.gif) -->
+![Authentication Demo](client/public/authentication.gif)
 
-## Planned Features
+### Cancel Session
 
-### Delete Session
+Allow session hosts to cancel sessions that are no longer needed.
 
-Allow session hosts to delete sessions that are no longer needed.
-
-**Status:** Planned
+![Cancel Session Demo](client/public/cancelSession.gif)
 
 ### RSVP to Session
 
 Allow students to register their attendance for study sessions.
 
-**Status:** Planned
+![Register Demo](client/public/register.gif)
 
 ## Installation Instructions
 
